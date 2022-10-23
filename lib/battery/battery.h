@@ -49,7 +49,7 @@ private:
     int responsePos{};
     states state = STATE_NONE;
 
-    int convertBytesToInt(byte byte1, byte byte2);
+    int16_t convertBytesToInt(byte byte1, byte byte2);
 
     void printBytes(const String &tag, const byte bytes[], int len);
 

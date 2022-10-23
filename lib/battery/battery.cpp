@@ -202,7 +202,7 @@ DynamicJsonDocument battery::readBattery() {
     } else {
         doc["voltage"] = double(convertBytesToInt(response[8], response[7])) * 10 / 1000;
     }
-    doc["power"] = double (doc["current"].as<double>() / doc["voltage"].as<double>());
+    doc["power"] = double (doc["current"].as<double>() * doc["voltage"].as<double>());
 
     if(!sendCommand(get_temperature, sizeof(get_temperature))) {
         doc["error"] = "get_temperature";
@@ -232,8 +232,8 @@ DynamicJsonDocument battery::readBattery() {
     return doc;
 }
 
-int battery::convertBytesToInt(byte byte1, byte byte2) {
-    int result = (byte1 << 8) | byte2;
+int16_t battery::convertBytesToInt(byte byte1, byte byte2) {
+    int16_t result = (byte1 << 8) | byte2;
 
     return result;
 }
